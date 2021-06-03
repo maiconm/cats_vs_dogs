@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cards.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,14 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Hello world',
-            ),
-          ],
-        ),
+        child: Cards(),
       ),
     );
   }
