@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'cards.dart';
+import 'components/cards.dart';
 
 void main() {
   runApp(MyApp());

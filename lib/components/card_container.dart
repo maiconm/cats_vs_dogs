@@ -16,9 +16,6 @@ class CardContainer extends StatelessWidget {
           color: color,
         ),
       ),
-      onSwipeUp: null,
-      onSwipeDown: null,
-      onSwipeRight: null,
     );
   }
 }
