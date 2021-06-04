@@ -2,18 +2,11 @@ import 'package:cats_vs_dogs/components/card_widget.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_tindercard/flutter_tindercard.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
-final List data = [
-  {
-    'imageUrl': 'lib/assets/bored-cat.jpeg',
-  },
-  {
-    'imageUrl': 'lib/assets/dog-running.jpeg',
-  },
-  {
-    'imageUrl': 'lib/assets/doggy.jpg',
-  },
-];
+final String dogAsApi = 'https://dog.ceo/api/breeds/image/random';
+final String ramdomCatApi = 'https://aws.random.cat/meow';
 
 class CardsContainer extends StatefulWidget {
   const CardsContainer({ Key? key }) : super(key: key);
@@ -24,6 +17,7 @@ class CardsContainer extends StatefulWidget {
 
 class _CardsContainerState extends State<CardsContainer> with TickerProviderStateMixin {
   CardController controller = CardController();
+  List images = [];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +27,38 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
     );
   }
 
-  void likeHandler(CardSwipeOrientation side, int index) {
+  @override
+  void initState() {
+    getThreeInitialImages().then(
+      (initialImages) {
+        setState(() {
+          initialImages.forEach((image) {
+            images.add(image);
+          });
+        });
+      }
+    );
+    super.initState();
+  }
+
+  Future<List> getThreeInitialImages() async {
+    var first = await requestNewImage(true);
+    var second = await requestNewImage(true);
+    var third = await requestNewImage(true);
+    var fourth = await requestNewImage(false);
+    var fifth = await requestNewImage(false);
+    var sixth = await requestNewImage(false);
+    return [first, second, third, fourth, fifth, sixth];
+  }
+
+  Future<String> requestNewImage(bool isDog) async {
+    var url = Uri.parse(isDog ? dogAsApi : ramdomCatApi);
+    var response = await http.get(url);
+    var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+    return jsonResponse[isDog ? 'message' : 'file'];
+  }
+
+  void likeHandler(CardSwipeOrientation side) async {
     if (side == CardSwipeOrientation.RIGHT) {
       print('liked');
     } else if (side == CardSwipeOrientation.LEFT) {
@@ -43,7 +68,7 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
 
   Widget getBody() {
     var size = MediaQuery.of(context).size;
-    data.shuffle();
+    images.shuffle();
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 120),
@@ -55,13 +80,13 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
           minWidth: MediaQuery.of(context).size.width * 0.75,
           minHeight: MediaQuery.of(context).size.height * 0.6,
           cardBuilder: (context, index) => CardWidget(
-            data[index]['imageUrl'],
+            images[index],
             () => controller.triggerRight(),
           ),
-          totalNum: data.length,
           cardController: controller,
           allowVerticalMovement: false,
-          swipeCompleteCallback: (CardSwipeOrientation side, int index) => likeHandler(side, index),
+          totalNum: images.length,
+          swipeCompleteCallback: (CardSwipeOrientation side, int _) => likeHandler(side),
         ),
       ),
     );

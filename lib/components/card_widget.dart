@@ -34,7 +34,7 @@ class CardWidget extends StatelessWidget {
                 height: size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(image),
+                    image: NetworkImage(image),
                     fit: BoxFit.cover,
                   ),
                 ),
