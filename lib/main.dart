@@ -1,5 +1,5 @@
+import 'package:cats_vs_dogs/components/cards_container.dart';
 import 'package:flutter/material.dart';
-import 'components/cards.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Cards(),
+        child: CardsContainer(),
       ),
     );
   }
