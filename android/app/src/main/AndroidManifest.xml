@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cats_vs_dogs">
+    package="com.maicon.cats_vs_dogs">
    <application
         android:label="cats_vs_dogs"
         android:icon="@mipmap/ic_launcher">

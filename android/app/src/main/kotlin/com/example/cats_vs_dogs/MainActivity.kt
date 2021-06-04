@@ -1,4 +1,4 @@
-package com.example.cats_vs_dogs
+package com.maicon.cats_vs_dogs
 
 import io.flutter.embedding.android.FlutterActivity
 
