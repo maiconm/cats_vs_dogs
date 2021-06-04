@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_swipable/flutter_swipable.dart';
 
 class CardContainer extends StatelessWidget {
   final String image;
@@ -9,8 +7,7 @@ class CardContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Swipable(
-      child: Container(
+    return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
           image: DecorationImage(
@@ -27,7 +24,6 @@ class CardContainer extends StatelessWidget {
             ),
           ]
         ),
-      ),
-    );
+      );
   }
 }
