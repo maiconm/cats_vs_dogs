@@ -1,4 +1,5 @@
 import 'package:cats_vs_dogs/components/card_widget.dart';
+import 'package:cats_vs_dogs/models/pet_interface.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -18,8 +19,8 @@ class CardsContainer extends StatefulWidget {
 }
 
 class _CardsContainerState extends State<CardsContainer> with TickerProviderStateMixin {
-  CardController controller = CardController();
-  List images = [];
+  CardController _controller = CardController();
+  List<PetInterface> _pets = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +32,11 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
 
   @override
   void initState() {
-    getThreeInitialImages().then(
+    getInitialPets().then(
       (initialImages) {
         setState(() {
           initialImages.forEach((image) {
-            images.add(image);
+            _pets.add(image);
           });
         });
       }
@@ -43,25 +44,28 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
     super.initState();
   }
 
-  Future<List> getThreeInitialImages() async {
-    var first = await requestNewImage(true);
-    var second = await requestNewImage(true);
-    var third = await requestNewImage(true);
-    var fourth = await requestNewImage(false);
-    var fifth = await requestNewImage(false);
-    var sixth = await requestNewImage(false);
+  Future<List> getInitialPets() async {
+    var first = await requestNewPet(true);
+    var second = await requestNewPet(true);
+    var third = await requestNewPet(true);
+    var fourth = await requestNewPet(false);
+    var fifth = await requestNewPet(false);
+    var sixth = await requestNewPet(false);
     return [first, second, third, fourth, fifth, sixth];
   }
 
-  Future<String> requestNewImage(bool isDog) async {
+  Future<PetInterface> requestNewPet(bool isDog) async {
     var url = Uri.parse(isDog ? dogAsApi : ramdomCatApi);
     var response = await http.get(url);
     var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-    return jsonResponse[isDog ? 'message' : 'file'];
+    return PetInterface(
+      jsonResponse[isDog ? 'message' : 'file'],
+      isDog ? 'dogs' : 'cats',
+    );
   }
 
-  void likeHandler(CardSwipeOrientation side) async {
-    DatabaseReference _databaseReference = FirebaseDatabase.instance.reference().child('dogs');
+  void likeHandler(CardSwipeOrientation side, String type) async {
+    DatabaseReference _databaseReference = FirebaseDatabase.instance.reference().child(type);
     int _currentValue = (await _databaseReference.get())?.value;
     
     print(_currentValue);
@@ -74,7 +78,7 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
 
   Widget getBody() {
     var size = MediaQuery.of(context).size;
-    images.shuffle();
+    _pets.shuffle();
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 120),
@@ -86,13 +90,13 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
           minWidth: MediaQuery.of(context).size.width * 0.75,
           minHeight: MediaQuery.of(context).size.height * 0.6,
           cardBuilder: (context, index) => CardWidget(
-            images[index],
-            () => controller.triggerRight(),
+            _pets[index].imageUrl,
+            () => _controller.triggerRight(),
           ),
-          cardController: controller,
+          cardController: _controller,
           allowVerticalMovement: false,
-          totalNum: images.length,
-          swipeCompleteCallback: (CardSwipeOrientation side, int _) => likeHandler(side),
+          totalNum: _pets.length,
+          swipeCompleteCallback: (CardSwipeOrientation side, int index) => likeHandler(side, _pets[index].type),
         ),
       ),
     );
