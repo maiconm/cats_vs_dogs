@@ -1,4 +1,5 @@
 import 'package:cats_vs_dogs/components/card_widget.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_tindercard/flutter_tindercard.dart';
@@ -7,6 +8,7 @@ import 'dart:convert' as convert;
 
 final String dogAsApi = 'https://dog.ceo/api/breeds/image/random';
 final String ramdomCatApi = 'https://aws.random.cat/meow';
+final String firebaseUrl = '';
 
 class CardsContainer extends StatefulWidget {
   const CardsContainer({ Key? key }) : super(key: key);
@@ -59,10 +61,14 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
   }
 
   void likeHandler(CardSwipeOrientation side) async {
+    DatabaseReference _databaseReference = FirebaseDatabase.instance.reference().child('dogs');
+    int _currentValue = (await _databaseReference.get())?.value;
+    
+    print(_currentValue);
     if (side == CardSwipeOrientation.RIGHT) {
-      print('liked');
+      _databaseReference.set(_currentValue + 1);
     } else if (side == CardSwipeOrientation.LEFT) {
-      print('disliked');
+      _databaseReference.set(_currentValue - 1);
     }
   }
 
