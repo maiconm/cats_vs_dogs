@@ -3,13 +3,13 @@ import 'card_container.dart';
 
 final List data = [
   {
-    'color': Colors.red,
+    'imageUrl': 'lib/assets/bored-cat.jpeg',
   },
   {
-    'color': Colors.blue,
+    'imageUrl': 'lib/assets/dog-running.jpeg',
   },
   {
-    'color': Colors.green,
+    'imageUrl': 'lib/assets/doggy.jpg',
   },
 ];
 
@@ -23,21 +23,22 @@ class Cards extends StatefulWidget {
 class _CardsState extends State<Cards> {
   List<CardContainer> cards = [
     CardContainer(
-      data[0]['color']
+      data[0]['imageUrl']
     ),
     CardContainer(
-      data[1]['color']
+      data[1]['imageUrl']
     ),
     CardContainer(
-      data[2]['color']
+      data[2]['imageUrl']
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
+    cards.shuffle();
     return Container(
+      height: 300,
       width: 300,
-      height: 600,
       child: Stack(
         children: cards,
       ),

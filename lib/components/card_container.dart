@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 
 class CardContainer extends StatelessWidget {
-  final Color color;
+  final String image;
 
-  CardContainer(this.color);
+  CardContainer(this.image);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,19 @@ class CardContainer extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
-          color: color,
+          image: DecorationImage(
+            image: AssetImage(image),
+            fit: BoxFit.cover,
+          ),
+          color: Colors.red,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: Offset(4, 5),
+            ),
+          ]
         ),
       ),
     );
