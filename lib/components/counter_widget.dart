@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CounterWidget extends StatelessWidget {
+class CounterWidget extends StatefulWidget {
   final int _number;
   final MaterialColor _color;
   final String _type;
@@ -12,10 +12,16 @@ class CounterWidget extends StatelessWidget {
   );
 
   @override
+  _CounterWidgetState createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: _color,
+        color: widget._color,
         borderRadius: BorderRadius.circular(16),
       ),
       height: 100,
@@ -24,7 +30,7 @@ class CounterWidget extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: Text(
-            _type == 'cat' ? '🐈 $_number' : '$_number 🐕',
+            widget._type == 'cat' ? '🐈 ${widget._number}' : '${widget._number} 🐕',
             style: TextStyle(
               fontSize: 20,
             ),
