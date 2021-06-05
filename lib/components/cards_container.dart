@@ -1,4 +1,5 @@
 import 'package:cats_vs_dogs/components/card_widget.dart';
+import 'package:cats_vs_dogs/components/counter_widget.dart';
 import 'package:cats_vs_dogs/models/pet_interface.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -109,48 +110,20 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
               StreamBuilder(
                 stream: _catsSnaphot,
                 builder: (context, AsyncSnapshot<Event>snapshot) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    height: 100,
-                    width: MediaQuery.of(context).size.width * 0.46,
-                    child: Center(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        child: Text(
-                          '🐈 ${snapshot.data?.snapshot.value}',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    )
+                  return CounterWidget(
+                    snapshot.data?.snapshot.value,
+                    Colors.green,
+                    'cat'
                   );
                 }
               ),
               StreamBuilder(
                 stream: _dogsSnapshot,
                 builder: (context, AsyncSnapshot<Event> snapshot) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    height: 100,
-                    width: MediaQuery.of(context).size.width * 0.46,
-                    child: Center(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        child: Text(
-                          '${snapshot.data?.snapshot.value} 🐕',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    ),
+                  return CounterWidget(
+                    snapshot.data?.snapshot.value,
+                    Colors.blue,
+                    'dog'
                   );
                 },
               ),
