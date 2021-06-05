@@ -83,59 +83,81 @@ class _CardsContainerState extends State<CardsContainer> with TickerProviderStat
 
 
   Widget getBody() {
-    return Container(
-        child: Column(
-          children: [
-            Expanded(
-              child: TinderSwapCard(
-                maxWidth: MediaQuery.of(context).size.width,
-                maxHeight: MediaQuery.of(context).size.height * 0.75,
-                minWidth: MediaQuery.of(context).size.width * 0.75,
-                minHeight: MediaQuery.of(context).size.height * 0.6,
-                cardBuilder: (context, index) => CardWidget(
-                  _pets[index].imageUrl,
-                  () => _controller.triggerRight(),
-                ),
-                cardController: _controller,
-                allowVerticalMovement: false,
-                totalNum: _pets.length,
-                swipeCompleteCallback: (CardSwipeOrientation side, int index) => likeHandler(side, _pets[index].type),
+    return Column(
+      children: [
+        Expanded(
+          child: TinderSwapCard(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height * 0.75,
+            minWidth: MediaQuery.of(context).size.width * 0.75,
+            minHeight: MediaQuery.of(context).size.height * 0.6,
+            cardBuilder: (context, index) => CardWidget(
+              _pets[index].imageUrl,
+              () => _controller.triggerRight(),
+            ),
+            cardController: _controller,
+            allowVerticalMovement: false,
+            totalNum: _pets.length,
+            swipeCompleteCallback: (CardSwipeOrientation side, int index) => likeHandler(side, _pets[index].type),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StreamBuilder(
+                stream: _catsSnaphot,
+                builder: (context, AsyncSnapshot<Event>snapshot) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    height: 100,
+                    width: MediaQuery.of(context).size.width * 0.46,
+                    child: Center(
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        child: Text(
+                          '🐈 ${snapshot.data?.snapshot.value}',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    )
+                  );
+                }
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  color: Colors.green,
-                  height: 100,
-                  child: StreamBuilder(
-                    stream: _catsSnaphot,
-                    builder: (context, AsyncSnapshot<Event> snapshot) {
-                      if (snapshot.hasError) {
-                        return Text('Something went wrong 🤔');
-                      }
-                      return Text('${snapshot.data?.snapshot.value}');
-                    },
-                  ),
-                ),
-                Container(
-                  color: Colors.red,
-                  height: 100,
-                  child: StreamBuilder(
-                    stream: _dogsSnapshot,
-                    builder: (context, AsyncSnapshot<Event> snapshot) {
-                      if (snapshot.hasError) {
-                        return Text('Something went wrong 🤔');
-                      }
-                      return Text('${snapshot.data?.snapshot.value}');
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ],
+              StreamBuilder(
+                stream: _dogsSnapshot,
+                builder: (context, AsyncSnapshot<Event> snapshot) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    height: 100,
+                    width: MediaQuery.of(context).size.width * 0.46,
+                    child: Center(
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        child: Text(
+                          '${snapshot.data?.snapshot.value} 🐕',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         )
-      // ),
+      ],
     );
   }
 }
