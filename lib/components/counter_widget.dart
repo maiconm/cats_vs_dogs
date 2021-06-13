@@ -33,6 +33,7 @@ class _CounterWidgetState extends State<CounterWidget> {
             widget._type == 'cat' ? '🐈 ${widget._number}' : '${widget._number} 🐕',
             style: TextStyle(
               fontSize: 20,
+              fontFamily: 'RobotoMono'
             ),
           ),
         ),

@@ -12,7 +12,6 @@ import 'package:http/http.dart';
 
 final String dogAsApi = 'https://dog.ceo/api/breeds/image/random';
 final String ramdomCatApi = 'https://aws.random.cat/meow';
-final String firebaseUrl = '';
 
 class CardsContainer extends StatefulWidget {
   const CardsContainer({ Key? key }) : super(key: key);

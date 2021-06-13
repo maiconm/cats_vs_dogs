@@ -1,4 +1,4 @@
-import 'package:cats_vs_dogs/components/cards_container.dart';
+import 'package:cats_vs_dogs/pages/cards_container.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
