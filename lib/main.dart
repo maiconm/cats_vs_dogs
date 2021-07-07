@@ -1,19 +1,13 @@
-import 'package:cats_vs_dogs/module/Splash.dart';
+import 'package:cats_vs_dogs/app_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(AppWidget());
+  runApp(App());
 }
 
-class AppWidget extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Cats vs Dogs',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SplashPage(),
-    );
+    return AppWidget();
   }
 }

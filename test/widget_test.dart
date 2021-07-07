@@ -4,16 +4,14 @@
 // utility that Flutter provides. For example, you can send tap and scroll
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:cats_vs_dogs/main.dart';
 
 void main() {
-  testWidgets('Expect to find the name of the app', (WidgetTester tester) async {
-    await tester.pumpWidget(AppWidget());
+  testWidgets("Expect to find `Home works!` text", (WidgetTester tester) async {
+    await tester.pumpWidget(App());
 
-    expect(find.text('Cats vs Dogs'), findsOneWidget);
+    expect(find.text("Home works!"), findsOneWidget);
   });
 }
