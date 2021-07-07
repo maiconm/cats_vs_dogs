@@ -1,4 +1,4 @@
-import 'package:cats_vs_dogs/module/home/home_page.dart';
+import 'package:cats_vs_dogs/modules/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
