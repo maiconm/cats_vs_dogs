@@ -9,9 +9,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:cats_vs_dogs/main.dart';
 
 void main() {
-  testWidgets("Expect to find `Home works!` text", (WidgetTester tester) async {
+  testWidgets("Expect to find `Home` text", (WidgetTester tester) async {
     await tester.pumpWidget(App());
 
-    expect(find.text("Home works!"), findsOneWidget);
+    expect(find.text("Home"), findsOneWidget);
   });
 }

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CounterWidget extends StatelessWidget {
-  const CounterWidget({Key? key}) : super(key: key);
+  final int number;
+  final Color color;
+
+  const CounterWidget({
+    Key? key,
+    required this.number,
+    required this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,12 +16,12 @@ class CounterWidget extends StatelessWidget {
       height: 80,
       width: 155,
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: color,
         borderRadius: BorderRadius.circular(10)
       ),
       child: Center(
         child: Text(
-          "0",
+          number.toString(),
           style: TextStyle(
             fontSize: 25,
           ),

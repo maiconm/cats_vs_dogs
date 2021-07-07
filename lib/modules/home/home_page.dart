@@ -14,8 +14,8 @@ class HomePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CounterWidget(),
-            CounterWidget(),
+            CounterWidget(number: 3, color: Colors.red,),
+            CounterWidget(number: 5, color: Colors.blue,),
           ],
         ),
       ),
