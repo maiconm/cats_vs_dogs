@@ -1,8 +1,16 @@
 import 'package:cats_vs_dogs/shared/widgets/counter/counter_widget.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  var numOne = 4;
+  final numTwo = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +19,29 @@ class HomePage extends StatelessWidget {
         title: Text("Home"),
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Column(
           children: [
-            CounterWidget(number: 3, color: Colors.red,),
-            CounterWidget(number: 5, color: Colors.blue,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CounterWidget(
+                  number: numOne,
+                  color: Colors.red,
+                ),
+                CounterWidget(
+                  number: numTwo,
+                  color: Colors.blue,
+                ),
+              ],
+            ),
+            OutlinedButton(
+              onPressed: () {
+                setState(() {
+                  numOne++;
+                });
+              },
+              child: Text("test")
+            )
           ],
         ),
       ),
