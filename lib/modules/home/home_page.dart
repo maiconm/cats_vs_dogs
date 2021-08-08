@@ -21,27 +21,34 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CounterWidget(
-                  number: numOne,
-                  color: Colors.red,
+            Expanded(
+              child: Center(
+                child: OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      numOne++;
+                    });
+                  },
+                  child: Text("test"),
                 ),
-                CounterWidget(
-                  number: numTwo,
-                  color: Colors.blue,
-                ),
-              ],
+              )
             ),
-            OutlinedButton(
-              onPressed: () {
-                setState(() {
-                  numOne++;
-                });
-              },
-              child: Text("test")
-            )
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CounterWidget(
+                    number: numOne,
+                    color: Colors.red,
+                  ),
+                  CounterWidget(
+                    number: numTwo,
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
